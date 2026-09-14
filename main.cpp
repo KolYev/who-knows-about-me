@@ -17,5 +17,9 @@ int main()
         cout<< "Hello World!"<<endl;
     }
 
+    SOCKET socket;
+    sockaddr_in address;
+    bind(socket, (struct sockaddr*)&address, sizeof(address));
+
     return 0;
 }
