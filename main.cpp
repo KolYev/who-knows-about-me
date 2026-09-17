@@ -33,6 +33,11 @@ int main()
     int clientAddrLen = sizeof(clientAddr);
     SOCKET clientSocket = accept(listensocket, (sockaddr*)&clientAddr, &clientAddrLen);
 
+    // IP клиента
+    char clientIP[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, &clientAddr.sin_addr, clientIP, INET_ADDRSTRLEN);
+    cout<< "Client connected: "<< clientIP<< ":" << ntohs(clientAddr.sin_port) << endl;
+
     closesocket(listensocket); // закрытие сокета
     WSACleanup();
 
