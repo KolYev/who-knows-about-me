@@ -21,7 +21,12 @@ int main()
     sockaddr_in address;
     bind(listensocket, (struct sockaddr*)&address, sizeof(address)); // привязка в IP адресу и порту
 
+    int listening = listen(listensocket, 5);
+
+    cout << listening<< endl;
+
     closesocket(listensocket); // закрытие сокета
+    WSACleanup();
 
     return 0;
 }
