@@ -26,9 +26,12 @@ int main()
 
     bind(listensocket, (struct sockaddr*)&address, sizeof(address)); // привязка в IP адресу и порту
 
-    int listening = listen(listensocket, 5);
+    listen(listensocket, 5);
 
-    cout << listening<< endl;
+    // подключение
+    sockaddr_in clientAddr;
+    int clientAddrLen = sizeof(clientAddr);
+    SOCKET clientSocket = accept(listensocket, (sockaddr*)&clientAddr, &clientAddrLen);
 
     closesocket(listensocket); // закрытие сокета
     WSACleanup();
