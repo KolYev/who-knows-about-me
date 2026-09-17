@@ -38,7 +38,27 @@ int main()
     inet_ntop(AF_INET, &clientAddr.sin_addr, clientIP, INET_ADDRSTRLEN);
     cout<< "Client connected: "<< clientIP<< ":" << ntohs(clientAddr.sin_port) << endl;
 
-    closesocket(listensocket); // закрытие сокета
+    // чтение данных
+    const int BUF_SIZE = 4096;
+    char buffer[BUF_SIZE];
+    int bytesReceived;
+    while ((bytesReceived = recv(clientSocket, buffer, BUF_SIZE, 0)) > 0) {
+        cout.write(buffer, bytesReceived);
+        cout.flush();
+    }
+
+    if (bytesReceived == 0)
+    {
+        cout<< endl << "Client disconnected"<< endl;
+    }
+    else 
+    {
+        cerr << endl << "recv failed: "<< WSAGetLastError()<<endl;
+    }
+    
+
+    closesocket(clientSocket); // закрытие сокета клиента
+    closesocket(listensocket); // закрытие сокета прослушивания  
     WSACleanup();
 
     return 0;
