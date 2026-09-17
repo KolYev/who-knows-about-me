@@ -17,9 +17,11 @@ int main()
         cout<< "Hello World!"<<endl;
     }
 
-    SOCKET socket;
+    SOCKET listensocket = socket(AF_INET, SOCK_STREAM, 0); // сокет
     sockaddr_in address;
-    bind(socket, (struct sockaddr*)&address, sizeof(address));
+    bind(listensocket, (struct sockaddr*)&address, sizeof(address)); // привязка в IP адресу и порту
+
+    closesocket(listensocket); // закрытие сокета
 
     return 0;
 }
