@@ -18,7 +18,12 @@ int main()
     }
 
     SOCKET listensocket = socket(AF_INET, SOCK_STREAM, 0); // сокет
+    
     sockaddr_in address;
+    address.sin_family = AF_INET; // IPv4
+    address.sin_port = htons(8080); // порт 8080
+    address.sin_addr.s_addr = INADDR_ANY; // принимаем все доступные IP адреса
+
     bind(listensocket, (struct sockaddr*)&address, sizeof(address)); // привязка в IP адресу и порту
 
     int listening = listen(listensocket, 5);
